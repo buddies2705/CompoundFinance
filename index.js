@@ -3594,7 +3594,7 @@ const trollAbi = [
 
 
 const Web3 = require('web3')
-const httpProvider = "https://rinkeby.infura.io/v3/6272132bd12843378019e0ce6bcc6ecf"
+const httpProvider = "YOUR_QUIKNODE_RINKEBY_URL"
 var web3 = new Web3(new Web3.providers.HttpProvider(httpProvider));
 
 //create account
@@ -3608,7 +3608,7 @@ web3.eth.accounts.wallet.add({
 });
 
 
-const cETH ="0xbed6d9490a7cd81ff0f06f29189160a9641a358f";
+let cETH ="0xbed6d9490a7cd81ff0f06f29189160a9641a358f";
 
 let CEther = new web3.eth.Contract(abi, cETH);
 let cDAI = "0x2acc448d73e8d53076731fea2ef3fc38214d0a7d"
@@ -3622,36 +3622,36 @@ CEther.methods.supplyRatePerBlock().call().then((result) => {
 
 }).catch(error => console.log(error));
 
-// CEther.methods.mint().send({from: address, value: 2000000000000000000, gas : 2500000})
-// .on('transactionHash', (hash) => {
-//     console.log("hash", hash)
-// })
-// .on('confirmation', (confirmationNumber, receipt) => {
-//     console.log("confirmationNumber", confirmationNumber)
-//     console.log("receipt", receipt)
+CEther.methods.mint().send({from: address, value: 2000000000000000000, gas : 2500000})
+.on('transactionHash', (hash) => {
+    console.log("hash", hash)
+})
+.on('confirmation', (confirmationNumber, receipt) => {
+    console.log("confirmationNumber", confirmationNumber)
+    console.log("receipt", receipt)
 
-// })
-// .on('receipt', (receipt) => {
-//     // receipt example
-//     console.log("receipt", receipt);
-// })
-// .on('error', console.error); 
+})
+.on('receipt', (receipt) => {
+    // receipt example
+    console.log("receipt", receipt);
+})
+.on('error', console.error); 
 
 
 
-// troll.methods.enterMarkets([cETH, cDAI]).send({from: address  , gas : 2500000}).on('transactionHash', (hash) => {
-//     console.log("hash", hash)
-// })
-// .on('confirmation', (confirmationNumber, receipt) => {
-//     console.log("confirmationNumber", confirmationNumber)
-//     console.log("receipt", receipt)
+troll.methods.enterMarkets([cETH, cDAI]).send({from: address  , gas : 2500000}).on('transactionHash', (hash) => {
+    console.log("hash", hash)
+})
+.on('confirmation', (confirmationNumber, receipt) => {
+    console.log("confirmationNumber", confirmationNumber)
+    console.log("receipt", receipt)
 
-// })
-// .on('receipt', (receipt) => {
-//     // receipt example
-//     console.log("receipt", receipt);
-// })
-// .on('error', console.error); 
+})
+.on('receipt', (receipt) => {
+    // receipt example
+    console.log("receipt", receipt);
+})
+.on('error', console.error); 
 
 
 
@@ -3669,3 +3669,8 @@ cDaiInstance.methods.borrow(5).send({from: address , gas : 2500000}).on('transac
     console.log("receipt", receipt);
 })
 .on('error', console.error); 
+
+
+ cDaiInstance.methods.borrowBalanceCurrent(address).call().then(result => {
+ 	console.log(result.toNumber() / 1E18)
+ })
